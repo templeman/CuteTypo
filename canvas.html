@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Canvas!</title>
+	<script>
+	window.onload = function() {
+		var stage = document.getElementById("stage");
+
+		// Get the Canvas context
+		// Will throw an error when unsupported.
+		var ctx = stage.getContext('2d');
+
+/*		ctx.fillStyle = "rgb(200,0,0)";
+		ctx.fillRect(10, 10, 55, 50);
+		ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+		ctx.fillRect(30, 30, 55, 50);
+		ctx.beginPath();
+		ctx.moveTo(75,50);
+		ctx.lineTo(100,75);
+		ctx.lineTo(100,25);
+		ctx.lineTo(75,50);
+		ctx.stroke();
+		
+		ctx.beginPath();
+		ctx.moveTo(200,50);
+		ctx.arc(200,50,30,Math.PI*.15,Math.PI*1.85);
+		ctx.lineTo(200,50);
+		ctx.stroke();
+		ctx.fillStyle = "Yellow";
+		ctx.fill();*/
+		
+		
+	// Draw a smiley-face
+		ctx.beginPath();
+		ctx.moveTo(100, 100);
+		ctx.arc(150, 100, 100, 0, Math.PI*2, false);
+		ctx.stroke();
+		ctx.fillStyle = "#232323";
+		ctx.fill();
+		
+		ctx.beginPath();
+		ctx.moveTo(110, 120);
+		ctx.arc(110, 90, 10, 0, Math.PI*2, false);
+		ctx.fillStyle = "#fff";
+		ctx.fill()
+		
+		ctx.beginPath();
+		ctx.moveTo(110, 120);
+		ctx.arc(160, 90, 10, 0, Math.PI*2, false);
+		ctx.fillStyle = "#fff";
+		ctx.fill()
+		
+		ctx.beginPath();
+		ctx.moveTo(110, 120);
+		
+		
+	};
+	</script>
+</head>
+<body>
+	<canvas id="stage" width="300" height="200"></canvas>
+</body>
+</html>
