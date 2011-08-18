@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+
+	<title>CuteTypo</title>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	<script>
+		$(function() {
+
+			var ct = {}; // CuteTypo
+			ct.token = "89d3949a2ea00d03f75bb6aadb8205b9e765f642732609d2d49bb6a6";
+			ct.message = "If you send a message and I don't respond its cuz my chat is janky as all getout"
+			ct.username = "m";
+
+			ct.get = function(url, data) {
+				return $.getJSON("http://cutetypo.com" + url + "?callback=?&token=" + ct.token, data);
+			}; 
+
+			ct.get("/message/get")
+			.then(function(data) { //  { console.log(data) });
+				$.each(data, function(i, chat){
+					$('#chat').append('<p>' + chat.message + '</p>');
+				});
+			});
+
+			ct.send = function(url, data) {
+				return $.getJSON("http://cutetypo.com" + url + "?message=" + ct.message + "&username=" + ct.username + "&callback=?&token=" + ct.token, data);
+			};
+
+			ct.send("/message/send")
+				.then(function(data) { console.log(data) });
+//			{  $('#chat').text(data) }); 
+
+			/*
+			$.getJSON("http://cutetypo.com/name/set?callback=?", {name: "Super Awesome", token: token})
+			.then(function(data) {
+			$.getJSON("http://cutetypo.com/name/get?callback=?&token=" + token)
+			.then(function(date) { console.log(data); })
+			console.log(data);
+			}) */
+		});
+	</script>
+	</head>
+
+	<body>
+		<div id ="chat"></div>
+	</body>
+
+</html>

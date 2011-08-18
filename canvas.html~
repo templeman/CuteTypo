@@ -9,27 +9,27 @@
 
    // stage.onclick = function(event)
     
-  $('#stage').mousedown(function(e){
+    $('#stage').mousedown(function(e){
   var mouseX = e.pageX - this.offsetLeft;
   var mouseY = e.pageY - this.offsetTop;
 		
   paint = true;
   addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
-  draw();
+  redraw();
 });
 
-$('#stage').mousemove(function(e){
+$('#canvas').mousemove(function(e){
   if(paint){
     addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
-    draw();
+    redraw();
   }
 });
 
-$('#stage').mouseup(function(e){
+$('#canvas').mouseup(function(e){
   paint = false;
 });
 
-$('#stage').mouseleave(function(e){
+$('#canvas').mouseleave(function(e){
   paint = false;
 });
 
@@ -45,11 +45,12 @@ function addClick(x, y, dragging)
   clickDrag.push(dragging);
 }
 
-function draw(){
+function redraw(){
   canvas.width = canvas.width; // Clears the canvas
   
-  context.strokeStyle = "#cccccc";
-  context.lineWidth = 3;
+  context.strokeStyle = "#df4b26";
+  context.lineJoin = "round";
+  context.lineWidth = 5;
 			
   for(var i=0; i < clickX.length; i++)
   {		
