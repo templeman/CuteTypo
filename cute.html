@@ -2,48 +2,85 @@
 <html>
 	<head>
 
-	<title>CuteTypo</title>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-	<script>
-		$(function() {
+		<title>CuteTypo</title>
+		<link rel="stylesheet" href="main.css">
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+		<script>
+			$(function() {
+				
 
-			var ct = {}; // CuteTypo
-			ct.token = "89d3949a2ea00d03f75bb6aadb8205b9e765f642732609d2d49bb6a6";
-			ct.message = "If you send a message and I don't respond its cuz my chat is janky as all getout"
-			ct.username = "m";
+				var ct = {}; // CuteTypo
+				ct.token = "89d3949a2ea00d03f75bb6aadb8205b9e765f642732609d2d49bb6a6";
+				ct.message = "No msg"
+				ct.username = "m";
 
-			ct.get = function(url, data) {
-				return $.getJSON("http://cutetypo.com" + url + "?callback=?&token=" + ct.token, data);
-			}; 
+				ct.get = function(url, data) {
+					return $.getJSON("http://cutetypo.com" + url + "?callback=?&token=" + ct.token, data);
+				}; 
 
-			ct.get("/message/get")
-			.then(function(data) { //  { console.log(data) });
-				$.each(data, function(i, chat){
-					$('#chat').append('<p>' + chat.message + '</p>');
+				ct.get("/message/get")
+				.then(function(data) { //  { console.log(data) });
+					$.each(data, function(i, chat){
+						var app = $('<span class="app"></span>').append(chat.app);
+						var id = $('<span class="id"></span>').append(chat.id);
+						var message = $('<span class="message"></span>').append(chat.message);
+						var user = $('<span class="user"></span>').append('So Sayeth ' + chat.username);
+
+						$('<div></div>').attr({
+							class: 'pressed'
+						}).append(app, id, message, user).appendTo('#chat');
+						// $('#chat').append(app, id, message, user);
+					//	$('#chat').append('<p>App: ' + chat.app + '</p>');
+					//	$('#chat').append('<p>Id: ' + chat.id + '</p>');
+						// $('#chat').append('<div class="pressed">Message: ' + chat.message + '</div>');
+						 // $('#chat').append('<p>So sayeth ' + chat.username + '</p>');
+					});
 				});
+
+				ct.send = function(url, data) {
+					return $.getJSON("http://cutetypo.com" + url + "?message=" + ct.message + "&username=" + ct.username + "&callback=?&token=" + ct.token, data);
+				};
+
+				ct.send("/message/send")
+					.then(function(data) { console.log(data) });
+	//			{  $('#chat').text(data) }); 
+
+				/*
+				$.getJSON("http://cutetypo.com/name/set?callback=?", {name: "Super Awesome", token: token})
+				.then(function(data) {
+				$.getJSON("http://cutetypo.com/name/get?callback=?&token=" + token)
+				.then(function(date) { console.log(data); })
+				console.log(data);
+				}) */
+//$('#submit').click(function() {
+//				
+//					var newMsg = $("input#my_msg").val();
+//					console.log(newMsg);
+//
+//						$.ajax({
+//							type: "POST",
+//							url: "cute.html",
+//							data: newMsg; 
+//							success: function(data) {
+//								if (data == "success") {
+//									console.log(data);
+//									ct.username = data;
+//								} else {
+//									console.log("You effed it up!!");
+//								}
+//							});
+//						}
+//					});
 			});
-
-			ct.send = function(url, data) {
-				return $.getJSON("http://cutetypo.com" + url + "?message=" + ct.message + "&username=" + ct.username + "&callback=?&token=" + ct.token, data);
-			};
-
-			ct.send("/message/send")
-				.then(function(data) { console.log(data) });
-//			{  $('#chat').text(data) }); 
-
-			/*
-			$.getJSON("http://cutetypo.com/name/set?callback=?", {name: "Super Awesome", token: token})
-			.then(function(data) {
-			$.getJSON("http://cutetypo.com/name/get?callback=?&token=" + token)
-			.then(function(date) { console.log(data); })
-			console.log(data);
-			}) */
-		});
-	</script>
+		</script>
 	</head>
 
 	<body>
 		<div id ="chat"></div>
+		<form id="chat_form" name="chat_form" action="" method="" >
+			<input type="text" name="my_msg" id="my_msg" />
+		   <input type="submit" id="submit" name="submit" value="SPEAK LITTLE MAN" />
+		</form>
 	</body>
 
 </html>
